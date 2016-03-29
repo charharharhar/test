@@ -1,1 +1,131 @@
 
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <title> 10 day countdown!! Get pumped! </title>
+
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/bootstrap-theme.css">
+  <link rel="stylesheet" href="css/eaott.css">
+  <script src="js/jquery-2.2.0.min.js"></script>
+  <script src="js/bootstrap.js"></script>
+  <meta name="viewport" content="width=device-width">
+
+  <!--[if lt IE 9]>
+  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <!-- http://stackoverflow.com/a/4888458 -->
+  <link rel="shortcut icon" href="img/icon.ico">
+</head>
+<body>
+  <div id="fb-root"></div>
+  <script>
+  function statusChangeCallback(response) {
+    console.log('statusChangeCallback');
+    console.log(response);
+    // The response object is returned with a status field that lets the
+    // app know the current login status of the person.
+    // Full docs on the response object can be found in the documentation
+    // for FB.getLoginStatus().
+    if (response.status === 'connected') {
+      // Logged into your app and Facebook.
+      document.getElementById('FBbutton').innerHTML = "";
+      basicAPIRequest();
+    } else if (response.status === 'not_authorized') {
+      // The person is logged into Facebook, but not your app.
+      document.getElementById('status').innerHTML = 'Please allow this app to have access to your public profile picture.';
+    } else {
+      // The person is not logged into Facebook, so we're not sure if
+      // they are logged into this app or not.
+      document.getElementById('status').innerHTML = 'First, log into Facebook so we can create your new FB profile image.';
+    }
+  };
+  function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+    });
+  };
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '2000756080149397',
+      xfbml      : true,
+      version    : 'v2.5'
+    });
+    FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+    });
+  };
+  function basicAPIRequest() {
+    FB.api('/me?fields=picture.height(100000)', function(response) {
+      htmlToAdd = '<p>Note: it may take a few moments to process your profile picture.</p>';
+      htmlToAdd = htmlToAdd + '<h4>RezWeek 2016: Greater Than Fear</h4>';
+      htmlToAdd = htmlToAdd + '<img src="https://www.wolframcloud.com/objects/843089a2-b275-4543-88cc-2b4bacce14cc?profile=' + encodeURIComponent (response.picture.data.url) + '" width="300"> ';
+      document.getElementById('status').innerHTML = htmlToAdd;
+    });
+  };
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=2000756080149397";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+  <header>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html"><img src="img/lambdasaur.png" alt="Logo" height="25px"></a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="index.html">Main <span class="sr-only">(current)</span></a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="quick_ventures.html">Quick Ventures</a></li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+    </header>
+    <div class="mainBody">
+      <h1>Get ready for RezWeek 2016!</h1>
+      <p>Filter your Facebook profile picture and represent the best week of the year with all your friends!</p>
+
+      <h2>Option 1</h2>
+      <p>We’ll filter your current Facebook profile picture for you--all you have to do is save and upload!</p>
+      <div id="status">
+        First, log into Facebook so we can create your new FB profile image.
+      </div>
+      <div id="FBbutton">
+        <div class="fb-login-button" data-size="xlarge" data-show-faces="false" data-auto-logout-link="false" onlogin="checkLoginState()"></div>
+      </div>
+
+      <h2>Option 2</h2>
+      <p>Would you rather upload your own image?</p>
+      <p>
+        <h4>RezWeek 2016: Greater Than Fear</h4>
+        <a href="https://www.wolframcloud.com/objects/32a921cc-8671-445f-b534-18024113bf7e" target="_blank">
+          <img src="img/rezweek/rezweek_btn.png" width="300">
+        </a>
+      </p>
+
+      <div>
+        <p>
+          Powered by by the Wolfram Language.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
